@@ -250,6 +250,7 @@ func (c *Config) GetTLSConfig(opts ...Option) *tls.Config {
 		SessionTicketsDisabled: !c.EnableSessionResumption,
 		VerifyPeerCertificate:  c.verifyPeerCert,
 		ClientCAs:              clientRoot,
+		MinVersion:         tls.VersionTLS13,
 	}
 
 	for _, opt := range opts {
