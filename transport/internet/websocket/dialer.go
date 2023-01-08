@@ -53,7 +53,7 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 
 	if config := tls.ConfigFromStreamSettings(streamSettings); config != nil {
 		protocol = "wss"
-		dialer.TLSClientConfig = config.GetTLSConfig(tls.WithDestination(dest), tls.WithNextProto("http/1.1"))
+		dialer.TLSClientConfig = config.GetTLSConfig(tls.WithDestination(dest), tls.WithNextProto("http/1.1"))  //升级golang可以去除nextprotocolnego
 	}
 
 	host := dest.NetAddr()
@@ -92,7 +92,7 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 		}), nil
 	}
 
-	conn, resp, err := dialer.Dial(uri, wsSettings.GetRequestHeader()) // nolint: bodyclose
+	conn, resp, err := dialer.Dial(uri, wsSettings.GetRequestHeader()) // nolint: bodyclose  //json config里可以修改ws ua
 	if err != nil {
 		var reason string
 		if resp != nil {
